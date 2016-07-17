@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="jCompiler" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="jCompiler" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="jCompiler" class="no-js lt-ie9"> <![endif]-->
+<html lang="en" ng-app="jCompiler">
+<head>
+    <title>AvolJCompiler UI</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/thirdparty.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="./scripts/angular.min.js"></script>
+    <script src="./scripts/app.js"></script>
+</head>
+<body ng-app="jCompiler">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <a href="#" style="text-decoration: none !important;">
+            <div class="panel-heading" id="headerContainer">
+                <h1>Avol JCompiler</h1>
+            </div>
+        </a>
+        <div class="container" ng-controller="LoginController" id="LoginContainer">
+            <div class="row" style="padding:5px;">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="#" class="active" id="login-form-link">SignIN</a>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a href="#" id="register-form-link">SignUP</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:5px;" id="respMessage" class="panel panel-info">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{respMessage}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form id="login-form" role="form" style="display: block;">
+                                        <div class="form-group">
+                                            <label for="LoginName">LoginName</label>
+                                            <input type="text" class="form-control" id="LoginName"
+                                                   name="loginName" ng-model="loginName"
+                                                   placeholder="Avol">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="password" class="form-control" id="Password"
+                                                   name="password" ng-model="password"
+                                                   placeholder="********">
+                                        </div>
+                                        <div class="form-group" align="center">
+                                            <button type="submit" ng-click="login()"
+                                                    tabindex="4" class="form-control btn btn-login">SignIN
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <form id="register-form" role="form" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="regLoginName">LoginName</label>
+                                            <input type="text" class="form-control" id="regLoginName"
+                                                   name="regLoginName" ng-model="regLoginName"
+                                                   placeholder="Avol">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="regEmail">LoginName</label>
+                                            <input type="text" class="form-control" id="regEmail"
+                                                   name="regEmail" ng-model="regEmail"
+                                                   placeholder="Avol@avol.com">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="password" class="form-control" id="regPassword"
+                                                   name="regPassword" ng-model="regPassword"
+                                                   placeholder="********">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" ng-click="register()" tabindex="4"
+                                                    class="form-control btn btn-register">SignUP
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="compileContainer" style="display:block;">
+            <div class="container" ng-controller="CompileController">
+                <div class="row" style="padding:5px;">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Compile your Java/Maven project form here.</div>
+                        <div class="panel-body">
+                            <div id="sourceContainer" style="padding:10px;">
+                                <input type="file" file-model="myFile"/>
+                                <button ng-click="uploadFile()" class="form-control btn btn-login">Compile ME</button>
+                                <div class="pre-scrollable" id="outputContainer">
+                                    <div id="output" style="padding-left: 120px;">
+                                        {{output}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

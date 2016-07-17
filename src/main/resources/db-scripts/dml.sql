@@ -1,0 +1,1 @@
+INSERT INTO USER_DETAILS(LOGIN_NAME, PASSWORD, EMAIL, JOIN_DATE) VALUES('avoldemo', 'avoldemo', 'avol@yahoo.com', SYSDATE);

@@ -1,0 +1,98 @@
+group 'org.avol.jcompiler'
+version '1.0-SNAPSHOT'
+
+buildscript {
+	ext {
+		springBootVersion = '1.2.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+	configurations {
+		compile.exclude module: "spring-boot-starter-tomcat"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot' 
+
+jar {
+	baseName = 'java-compiler'
+	version = '${version}'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	//Don't allow dependencies to pull in junit
+	runtime.exclude group: 'junit', module: 'junit'
+
+	// Don't allow dependencies to pull in slf4j-log4j12
+	all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+
+	all*.exclude group: 'org.slf4j', module: 'jcl-over-slf4j'
+
+	all*.exclude group: 'org.slf4j', module: 'jul-to-slf4j'
+
+	all*.exclude group: 'org.slf4j', module: 'log4j-over-slf4j'
+
+	all*.exclude group: 'org.sonatype.plexus'
+
+	//all*.exclude group: 'org.eclipse.aether'
+}
+
+dependencies {
+	compile files("${System.properties['java.home']}/../lib/tools.jar")
+
+	// https://mvnrepository.com/artifact/commons-logging/commons-logging
+	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+
+	// https://mvnrepository.com/artifact/commons-collections/commons-collections
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'
+
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+	//Spring boot dependencies.
+	compile("org.springframework.boot:spring-boot-starter-jetty")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.boot:spring-boot-starter-jersey")
+
+	//Actuator to get the health check and metrics.
+	compile 'org.springframework.boot:spring-boot-starter-actuator:1.2.3.RELEASE'
+
+	// https://mvnrepository.com/artifact/org.apache.maven.shared/maven-invoker
+	compile group: 'org.apache.maven.shared', name: 'maven-invoker', version: '2.2'
+
+	runtime('com.h2database:h2')
+
+	//lombok
+	compile "org.projectlombok:lombok:1.16.2"
+
+	//multipart dependencies.
+	// https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart
+	compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: '2.14'
+
+	// https://mvnrepository.com/artifact/org.jvnet.mimepull/mimepull
+	compile group: 'org.jvnet.mimepull', name: 'mimepull', version: '1.9.6'
+
+	//test dependencies
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+eclipse {
+	classpath {
+		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+	}
+}
